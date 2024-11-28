@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	if err := LoadConfigs(); err != nil {
+	env := GetEnvironment()
+	if err := LoadConfigs(env); err != nil {
 		log.Fatalf("Error loading configuration: %+v", err)
 	}
 	port := viper.GetString("server.port")

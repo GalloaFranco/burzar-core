@@ -1,11 +1,23 @@
 package main
 
-import "github.com/spf13/viper"
+import (
+	"os"
 
-func LoadConfigs() error {
-	viper.SetConfigName("local")
+	"github.com/spf13/viper"
+)
+
+func LoadConfigs(env string) error {
+	viper.SetConfigName(env)
 	viper.SetConfigType("yml")
 	viper.AddConfigPath("./config")
 
 	return viper.ReadInConfig()
+}
+
+func GetEnvironment() string {
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "local"
+	}
+	return env
 }
