@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/GalloaFranco/burzar-core/internal/adapters/drivens/rest"
-	driver_rest "github.com/GalloaFranco/burzar-core/internal/adapters/drivers/rest"
+	drivenrest "github.com/GalloaFranco/burzar-core/internal/adapters/drivens/rest"
+	driverrest "github.com/GalloaFranco/burzar-core/internal/adapters/drivers/rest"
 	"github.com/GalloaFranco/burzar-core/internal/core/services"
 
 	"github.com/spf13/viper"
@@ -24,12 +24,12 @@ func main() {
 
 	// SERVICES & ADAPTERS
 	httpClient := &http.Client{}
-	countryRiskRepository := driven_rest.NewCountryRiskRepository(httpClient, countryRiskBaseURL)
+	countryRiskRepository := drivenrest.NewCountryRiskRepository(httpClient, countryRiskBaseURL)
 	countryRiskService := services.NewCountryRisk(countryRiskRepository)
-	countryRiskDriver := driver_rest.NewCountryRisk(countryRiskService)
+	countryRiskDriver := driverrest.NewCountryRisk(countryRiskService)
 
 	router := gin.Default()
-	driver_rest.RegisterRoutes(router, countryRiskDriver)
+	driverrest.RegisterRoutes(router, countryRiskDriver)
 
 	log.Fatal(router.Run(port))
 }
