@@ -3,8 +3,9 @@ package driver_rest
 import (
 	"errors"
 	"fmt"
-	"github.com/GalloaFranco/burzar-core/internal/core/domain"
 	"testing"
+
+	"github.com/GalloaFranco/burzar-core/internal/core/domain"
 
 	"github.com/GalloaFranco/burzar-core/mocks"
 

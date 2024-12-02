@@ -3,10 +3,11 @@ package services
 import (
 	"errors"
 	"fmt"
+	"testing"
+
 	"github.com/GalloaFranco/burzar-core/internal/core/domain"
 	"github.com/GalloaFranco/burzar-core/mocks"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestCountryRiskService_NewCountryRisk(t *testing.T) {
