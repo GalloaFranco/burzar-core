@@ -13,6 +13,7 @@ func NewCountryRisk(crr ports.CountryRiskRepository) *CountryRisk {
 	return &CountryRisk{crr: crr}
 }
 
+// Get TODO: Error handling
 func (c *CountryRisk) Get() (*domain.CountryRisk, error) {
 	return c.crr.Obtain()
 }

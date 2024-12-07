@@ -17,6 +17,7 @@ func NewCountryRiskRepository(client *http.Client, baseURL string) *CountryRiskR
 	return &CountryRiskRepository{client: client, baseURL: baseURL}
 }
 
+// Obtain TODO: Error handling
 func (c *CountryRiskRepository) Obtain() (*domain.CountryRisk, error) {
 	response, err := c.client.Get(c.baseURL)
 	if err != nil {

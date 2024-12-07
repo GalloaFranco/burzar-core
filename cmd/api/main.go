@@ -27,6 +27,7 @@ func main() {
 	countryRiskRepository := drivenrest.NewCountryRiskRepository(httpClient, countryRiskBaseURL)
 	countryRiskService := services.NewCountryRisk(countryRiskRepository)
 	countryRiskDriver := driverrest.NewCountryRisk(countryRiskService)
+	// TODO: wrap all services that router will use in one big service (DI)
 
 	router := gin.Default()
 	driverrest.RegisterRoutes(router, countryRiskDriver)
