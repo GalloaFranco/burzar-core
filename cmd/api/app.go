@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"log"
@@ -7,13 +7,17 @@ import (
 	drivenrest "github.com/GalloaFranco/burzar-core/internal/adapters/drivens/rest"
 	driverrest "github.com/GalloaFranco/burzar-core/internal/adapters/drivers/rest"
 	"github.com/GalloaFranco/burzar-core/internal/core/services"
+	"github.com/aws/aws-lambda-go/lambda"
+	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
 
 	"github.com/spf13/viper"
 
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+var glambda *ginadapter.GinLambda
+
+func Run() {
 	// ENV & CONFIGS
 	env := GetEnvironment()
 	if err := LoadConfigs(env); err != nil {
@@ -32,5 +36,11 @@ func main() {
 	router := gin.Default()
 	driverrest.RegisterRoutes(router, countryRiskDriver)
 
-	log.Fatal(router.Run(port))
+	glambda = ginadapter.New(router)
+	log.Printf("ENVIRONMENT: %v", env)
+	if env == "local" {
+		log.Fatal(router.Run(port))
+	} else {
+		lambda.Start(glambda.Proxy)
+	}
 }

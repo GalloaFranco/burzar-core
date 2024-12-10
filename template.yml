@@ -1,0 +1,21 @@
+Resources:
+  GinApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: main
+      Runtime: go1.x
+      Environment:
+        Variables:
+          ENV: env.json
+      Events:
+        HelloRoute:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
+        CountryRiskRoute:
+          Type: Api
+          Properties:
+            Path: /country_risk
+            Method: GET
